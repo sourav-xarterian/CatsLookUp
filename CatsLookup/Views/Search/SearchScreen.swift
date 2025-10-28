@@ -10,6 +10,8 @@ import SwiftUI
 struct SearchScreenView: View {
     @State private var searchString: String = ""
     @StateObject private var searchViewModel = SearchViewModel()
+    @EnvironmentObject var favouriteCatsVm: FavouritesViewModel
+    
     
     var body: some View {
         VStack {
@@ -41,7 +43,7 @@ struct SearchScreenView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
                         List(searchViewModel.catsArray) { cat in
-                            FavouriteCatCard(cat: cat)
+                            FavouriteCatCard(cat: cat, favouriteCatsVm: favouriteCatsVm)
                                 .padding(.vertical, 4)
                         }
                         .listStyle(.plain)

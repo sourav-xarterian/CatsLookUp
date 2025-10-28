@@ -10,11 +10,23 @@ import SwiftUI
 struct HomeScreenView: View {
     @State var showLanguageDialog: Bool = false
     @State var showThemeDialog: Bool = false
+    @EnvironmentObject var favouritesVM: FavouritesViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                Text("CatsLookUp")
+                if favouritesVM.favourites.isEmpty {
+                    Text("No Liked Cats here!")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .foregroundColor(.secondary)
+                        .padding()
+                } else {
+                    List(favouritesVM.favourites) { cat in
+                        FavouriteCatCard(cat: cat, favouriteCatsVm: favouritesVM)
+                            .padding(.vertical, 4)
+                    }
+                    .listStyle(.plain)
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing, content: {
@@ -47,10 +59,11 @@ struct HomeScreenView: View {
                 })
             }
             .navigationTitle("CatsLookUp")
+            .navigationBarTitleDisplayMode(.large)
         }
     }
 }
 
 #Preview {
-    HomeScreenView()
+    HomeScreenView().environmentObject(FavouritesViewModel())
 }

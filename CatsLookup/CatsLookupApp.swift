@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct CatsLookupApp: App {
+    @StateObject private var favouritesVM = FavouritesViewModel()
     var body: some Scene {
         WindowGroup {
             HomeScreenView()
+                .environmentObject(favouritesVM)
         }
     }
 }

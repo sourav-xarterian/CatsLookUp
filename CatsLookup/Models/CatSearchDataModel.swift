@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchCatDataModel: Decodable, Identifiable {
+struct SearchCatDataModel: Identifiable, Codable, Equatable {
     let id: String
     let name: String
     let description: String
