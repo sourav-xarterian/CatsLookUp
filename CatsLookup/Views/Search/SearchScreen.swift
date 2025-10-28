@@ -28,7 +28,15 @@ struct SearchScreenView: View {
             // Data / Loader / Empty & Error State
             VStack {
                 if(!searchString.isEmpty) {
-                    if(searchViewModel.catsArray.isEmpty) {
+                    if(searchViewModel.isLoading) {
+                        ProgressView(value: 0.5, total: 1.0) {
+                               Text("Loading…")
+                           }
+                           .progressViewStyle(.circular)
+                           .tint(.blue)
+                           .frame(maxWidth: .infinity, maxHeight: .infinity)
+                           .padding()
+                    } else if(!searchViewModel.isLoading && searchViewModel.catsArray.isEmpty) {
                         Text("No Search Results Found for \(searchString)!")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
