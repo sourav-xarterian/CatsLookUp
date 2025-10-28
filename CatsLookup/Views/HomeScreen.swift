@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeScreenView: View {
+    @State var showLanguageDialog: Bool = false
+    @State var showThemeDialog: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -20,14 +23,26 @@ struct HomeScreenView: View {
                     }
                 })
                 ToolbarItem(placement: .topBarTrailing, content: {
-                    Button(action: {}) {
+                    Button(action: { showLanguageDialog = true }) {
                         Image(systemName: "globe")
+                    }
+                    .confirmationDialog("Select Language", isPresented: $showLanguageDialog) {
+                        Button("English") {}
+                        Divider()
+                        Button("Hindi") {}
                     }
                 })
                 ToolbarItem(placement: .topBarTrailing, content: {
-                    Button(action: {}) {
+                    Button(action: { showThemeDialog = true }) {
                         Image(systemName: "ellipsis")
                             .rotationEffect(.degrees(90))
+                    }
+                    .confirmationDialog("Select Theme", isPresented: $showThemeDialog) {
+                        Button("Dark Mode") {}
+                        Divider()
+                        Button("Light mode") {}
+                        Divider()
+                        Button("System") {}
                     }
                 })
             }
